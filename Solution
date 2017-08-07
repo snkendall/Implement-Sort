@@ -1,0 +1,31 @@
+function mySort(arr, func){
+  //keeps track of the number of times the function passed to the argument is called during the loop
+  var funcCount = 0;
+  
+  for (var i = 0; i < arr.length; i++){
+    
+    //rearranges the order of elements in place after being passed through the function provided in the argument
+    if(func(arr[i], arr[i + 1])){
+      var temp = arr[i];
+      arr[i] = arr[i+1];
+      arr[i+1] = temp;
+      funcCount++;
+    } 
+  }
+  //calls the sort function on the current altered version of the array until the function passed in isn't run during a loop
+  if (funcCount > 0){
+    mySort(arr,func);
+  }
+  return arr;
+}
+
+//test case
+function greaterThan(num1, num2) { return num1 > num2 }
+
+greaterThan(2,1);
+
+var arr = [5,2,3,1,4];
+var sortedArr = mySort(arr, greaterThan);
+
+console.log(sortedArr)    // [1,2,3,4,5]
+console.log(arr)    // [1,2,3,4,5]
